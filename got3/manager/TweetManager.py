@@ -11,7 +11,12 @@ class TweetManager:
 	def getTweets(tweetCriteria, receiveBuffer=None, bufferLength=100, proxy=None):
 		refreshCursor = ''
 	
-		results = []
+		# results = [] # ORIGINAL CODE LINE
+
+		# MY MODIFICATION START
+		results = {}
+		# MY MODIFICATION END
+
 		resultsAux = []
 		cookieJar = http.cookiejar.CookieJar()
 
@@ -69,7 +74,13 @@ class TweetManager:
 				tweet.urls = ",".join(urls)
 				tweet.author_id = user_id
 				
-				results.append(tweet)
+				# results.append(tweet) # ORIGINAL CODE LINE
+
+				# MY MODIFICATION START
+				results[id] = [tweet.geo, tweet.author_id, tweet.date, tweet.text, tweet.retweets, tweet.favorites, \
+				tweet.mentions, tweet.hashtags, tweet.permalink]
+				# MY MODIFICATION END
+
 				resultsAux.append(tweet)
 				
 				if receiveBuffer and len(resultsAux) >= bufferLength:
